@@ -17,7 +17,7 @@ public class CountryService implements ICountryService {
         return (List<Country>) repository.findAll();
     }
 
-    public Country getCountry(long id) {
+    public Country getCountry(Long id) {
         Optional optional=repository.findById(id);
         if(optional.isEmpty())
             return null;
@@ -29,21 +29,31 @@ public class CountryService implements ICountryService {
         return repository.save(country);
     }
 
-    public Country updateCountry(long id) {
-        Optional<Country> country = repository.findById(id);
-        if(country.isPresent()) {
-            return repository.save(country.get());
+    public Country updateCountry(Long id, Country country) {
+        Optional<Country> existingCountry = repository.findById(id);
+        if(existingCountry.isPresent()) {
+            return repository.save(country);
         }
         else
             return null;
     }
 
-    public void deleteUser(long id)
+    public void deleteUser(Long id)
     {
         Optional<Country> country = repository.findById(id);
         if(country.isPresent()) {
             repository.delete(country.get());
         }
+    }
+
+    public void deleteCountry(Long id) {
+        Optional<Country> country = repository.findById(id);
+        country.ifPresent(value -> repository.delete(value));
+    }
+
+    public Country findById(Long id) {
+        Optional<Country> country = repository.findById(id);
+        return country.orElse(null);
     }
 
 
