@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
-//@CrossOrigin(origins = "*", allowedHeaders = "*")
+
 @RestController
 public class MyController {
     @Autowired
@@ -24,7 +24,7 @@ public class MyController {
     }
 
     @RequestMapping(value = "/api/show-country/{id}")
-    public Country showCountry(@PathVariable long id) {
+    public Country showCountry(@PathVariable Long id) {
        return countryService.getCountry(id);
     }
 
@@ -34,9 +34,13 @@ public class MyController {
     }
 
     @RequestMapping(value="/api/update-country/{id}", method=RequestMethod.PUT)
-    public Country updateCountry(@PathVariable int id)
-    {
-        return countryService.updateCountry(id);
+    public Country updateCountry(@PathVariable Long id, @RequestBody Country country) {
+        return countryService.updateCountry(id, country);
+    }
+    @RequestMapping(value = "/api/delete-country/{id}", method = {RequestMethod.DELETE, RequestMethod.POST})
+    public String deleteCountry(@PathVariable("id") Long id) {
+        countryService.deleteCountry(id);
+        return "redirect:/countries";
     }
 
 }

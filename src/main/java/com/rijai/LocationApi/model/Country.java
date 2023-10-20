@@ -8,7 +8,7 @@ import java.util.Objects;
 public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     private String name;
     private String language;
@@ -16,17 +16,17 @@ public class Country {
     public Country() {
     }
 
-    public Country(long id, String name, String language) {
+    public Country(Long id, String name, String language) {
         this.id = id;
         this.name = name;
         this.language = language;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
